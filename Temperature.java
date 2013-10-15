@@ -21,7 +21,7 @@
  *              converted.toString()));
  * </code></pre>
  */
-public class Temperature {
+public final class Temperature {
 
     /**
      * Enumeration for different temperature units
@@ -58,13 +58,13 @@ public class Temperature {
         mUnit = temperature.mUnit;
     }
 
-    // Protected Methods
+    // Private Methods
     /**
      * Convert a {@code Temperature} value from {@code Units} to Kelvin
      *
      * @param value numerical value of Temperature
      */
-    protected double convertToKelvin(double value) {
+    private double convertToKelvin(double value) {
         switch (mUnit) {
             case KELVIN:
                 return value;
@@ -83,7 +83,7 @@ public class Temperature {
      *
      * @param value numerical value of Temperature
      */
-    protected double convertFromKelvin(double value) {
+    private double convertFromKelvin(double value) {
         switch (mUnit) {
             case KELVIN:
                 return value;
@@ -100,7 +100,7 @@ public class Temperature {
     /**
      * Format {@code Units}
      */
-    protected String unitsToString() {
+    private String unitsToString() {
         switch (mUnit) {
             case KELVIN:
                 return "K";
