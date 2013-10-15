@@ -1,3 +1,14 @@
+/*****************************************************************************
+ * Assignment 3
+ * 
+ * Student Name: Hernan A. Gatta
+ * Student ID:	 260477492
+ * Course:       ECSE 321
+ * 
+ * File:  Temperature.java
+ * Class: Temperature
+ * 
+ *****************************************************************************/
 
 /**
  * @author Aditya Mahajan <aditya.mahajan@mcgill.ca>

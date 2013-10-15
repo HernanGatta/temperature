@@ -1,3 +1,14 @@
+/*****************************************************************************
+ * Assignment 3
+ * 
+ * Student Name: Hernan A. Gatta
+ * Student ID:	 260477492
+ * Course:       ECSE 321
+ * 
+ * File:  TemperatureTest.java
+ * Class: TemperatureTest
+ * 
+ *****************************************************************************/
 
 /**
  * @author Aditya Mahajan <aditya.mahajan@mcgill.ca>
@@ -12,6 +23,10 @@ import org.junit.runner.JUnitCore;
 public class TemperatureTest {
 
     // Constants
+    /**
+     * This constant specifies the maximum allowed difference between expected
+     * and actual returned values.
+     */
     private static final double EPSILON = 1E-3;
     
     // .ctor
@@ -250,6 +265,7 @@ public class TemperatureTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void verifyExceptionOnNaN() {
+        // This value means nothing to the converter, regardless of the unit.
         new Temperature(Double.NaN, Temperature.Units.KELVIN);
     }
 
@@ -259,6 +275,7 @@ public class TemperatureTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void verifyExceptionOnPositiveInfinity() {
+        // This value means nothing to the converter, regardless of the unit.
         new Temperature(Double.POSITIVE_INFINITY, Temperature.Units.KELVIN);
     }
 
@@ -268,6 +285,7 @@ public class TemperatureTest {
      */
     @Test(expected = IllegalArgumentException.class)
     public void verifyExceptionOnNegativeInfinity() {
+        // This value means nothing to the converter, regardless of the unit.
         new Temperature(Double.NEGATIVE_INFINITY, Temperature.Units.KELVIN);
     }
 
@@ -290,6 +308,9 @@ public class TemperatureTest {
                      expectedValue,
                      returned,
                      EPSILON);
+        assertEquals("Target unit matches changed unit.", 
+                     targetUnit, 
+                     temperature.getUnits());
     }
 
 }
