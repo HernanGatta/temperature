@@ -44,6 +44,9 @@ public final class Temperature {
      * @param units {@code Units} of {@code Temperature}
      */
     public Temperature(double value, Temperature.Units unit) {
+        if(Double.isNaN(value)|| Double.isInfinite(value))
+            throw new IllegalArgumentException("'value' must be an actual value.");
+        
         mUnit = unit;
         mValueInKelvins = convertToKelvin(value);
     }

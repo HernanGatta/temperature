@@ -115,7 +115,7 @@ public class TemperatureTest {
 
     // Conversion Tests (Celsius to X)
     @Test
-    public void VerifyCelsiusToCelsius() {
+    public void verifyCelsiusToCelsius() {
         // Normal Case
         final double original = 100;
         final double expected = 100;
@@ -127,7 +127,7 @@ public class TemperatureTest {
     }
 
     @Test
-    public void VerifyCelsiusToKelvin() {
+    public void verifyCelsiusToKelvin() {
         // Normal Case
         final double original = 100;
         final double expected = 373.15;
@@ -139,7 +139,7 @@ public class TemperatureTest {
     }
 
     @Test
-    public void VerifyCelsiusToFahrenheit() {
+    public void verifyCelsiusToFahrenheit() {
         // Normal Case
         final double original = 100;
         final double expected = 212;
@@ -152,7 +152,7 @@ public class TemperatureTest {
 
     // Conversion Tests (Fahrenheit to X)
     @Test
-    public void VerifyFahrenheitToFahrenheit() {
+    public void verifyFahrenheitToFahrenheit() {
         // Normal Case
         final double original = 100;
         final double expected = 100;
@@ -164,7 +164,7 @@ public class TemperatureTest {
     }
 
     @Test
-    public void VerifyFahrenheitToCelsius() {
+    public void verifyFahrenheitToCelsius() {
         // Normal Case
         final double original = 100;
         final double expected = 37.778;
@@ -176,7 +176,7 @@ public class TemperatureTest {
     }
 
     @Test
-    public void VerifyFahrenheitToKelvin() {
+    public void verifyFahrenheitToKelvin() {
         // Normal Case
         final double original = 100;
         final double expected = 310.928;
@@ -185,6 +185,22 @@ public class TemperatureTest {
                    Temperature.Units.KELVIN,
                    original,
                    expected);
+    }
+
+    // Invalid Cases
+    @Test(expected = IllegalArgumentException.class)
+    public void verifyExceptionOnNaN() {
+        new Temperature(Double.NaN, Temperature.Units.KELVIN);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void verifyExceptionOnPositiveInfinity() {
+        new Temperature(Double.POSITIVE_INFINITY, Temperature.Units.KELVIN);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void verifyExceptionOnNegativeInfinity() {
+        new Temperature(Double.NEGATIVE_INFINITY, Temperature.Units.KELVIN);
     }
 
     // Private Helper Methods
