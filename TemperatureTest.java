@@ -12,7 +12,7 @@ import org.junit.runner.JUnitCore;
 public class TemperatureTest {
 
     // Constants
-    private static final double EPSILON = 1E-6;
+    private static final double EPSILON = 1E-3;
 
     // .ctor
     public static void main(String[] args) {
@@ -28,13 +28,19 @@ public class TemperatureTest {
         Temperature cTemp = new Temperature(2, Temperature.Units.CELSIUS);
         Temperature fTemp = new Temperature(3, Temperature.Units.FAHRENHEIT);
 
-        assertTrue("Unit in Kelvin is registered.", kTemp.getUnits() == Temperature.Units.KELVIN);
-        assertTrue("Unit in Celsius is registered.", cTemp.getUnits() == Temperature.Units.CELSIUS);
-        assertTrue("Unit in Fahrenheit is registered.", fTemp.getUnits() == Temperature.Units.FAHRENHEIT);
+        assertTrue("Unit in Kelvin is registered.",
+                   kTemp.getUnits() == Temperature.Units.KELVIN);
+        assertTrue("Unit in Celsius is registered.",
+                   cTemp.getUnits() == Temperature.Units.CELSIUS);
+        assertTrue("Unit in Fahrenheit is registered.",
+                   fTemp.getUnits() == Temperature.Units.FAHRENHEIT);
 
-        assertEquals("Value in Kelvins is registered.", kTemp.getValue(), 1, EPSILON);
-        assertEquals("Value in Celsius is registered.", cTemp.getValue(), 2, EPSILON);
-        assertEquals("Value in Fahrenheit is registered.", fTemp.getValue(), 3, EPSILON);
+        assertEquals("Value in Kelvins is registered.",
+                     kTemp.getValue(), 1, EPSILON);
+        assertEquals("Value in Celsius is registered.",
+                     cTemp.getValue(), 2, EPSILON);
+        assertEquals("Value in Fahrenheit is registered.",
+                     fTemp.getValue(), 3, EPSILON);
     }
 
     @Test
@@ -48,29 +54,39 @@ public class TemperatureTest {
         Temperature cCopy = new Temperature(cOriginal);
         Temperature fCopy = new Temperature(fOriginal);
 
-        assertTrue("Kelvin: Unit information was copied.", kOriginal.getUnits() == kCopy.getUnits());
-        assertEquals("Kelvin: Value information was copied.", kOriginal.getValue(), kCopy.getValue(), EPSILON);
+        assertTrue("Kelvin: Unit information was copied.",
+                   kOriginal.getUnits() == kCopy.getUnits());
+        assertEquals("Kelvin: Value information was copied.",
+                     kOriginal.getValue(),
+                     kCopy.getValue(),
+                     EPSILON);
 
-        assertTrue("Celsius: Unit information was copied.", cOriginal.getUnits() == cCopy.getUnits());
-        assertEquals("Celsius: Value information was copied.", cOriginal.getValue(), cCopy.getValue(), EPSILON);
+        assertTrue("Celsius: Unit information was copied.",
+                   cOriginal.getUnits() == cCopy.getUnits());
+        assertEquals("Celsius: Value information was copied.",
+                     cOriginal.getValue(),
+                     cCopy.getValue(),
+                     EPSILON);
 
-        assertTrue("Fahrenheit: Unit information was copied.", fOriginal.getUnits() == fCopy.getUnits());
-        assertEquals("Fahrenheit: Value information was copied.", fOriginal.getValue(), fCopy.getValue(), EPSILON);
+        assertTrue("Fahrenheit: Unit information was copied.",
+                   fOriginal.getUnits() == fCopy.getUnits());
+        assertEquals("Fahrenheit: Value information was copied.",
+                     fOriginal.getValue(),
+                     fCopy.getValue(),
+                     EPSILON);
     }
 
-    // Conversion Tests
+    // Conversion Tests (Kelvin to X)
     @Test
     public void verifyKelvinToKelvin() {
         // Normal Case
         final double original = 100;
         final double expected = 100;
-        double returned;
 
-        Temperature temperature = new Temperature(original, Temperature.Units.KELVIN);
-        temperature.changeUnits(Temperature.Units.KELVIN);
-        returned = temperature.getValue();
-
-        assertEquals(expected, returned, EPSILON);
+        verifyXtoY(Temperature.Units.KELVIN,
+                   Temperature.Units.KELVIN,
+                   original,
+                   expected);
     }
 
     @Test
@@ -78,13 +94,11 @@ public class TemperatureTest {
         // Normal Case
         final double original = 100;
         final double expected = -173.15;
-        double returned;
 
-        Temperature temperature = new Temperature(original, Temperature.Units.KELVIN);
-        temperature.changeUnits(Temperature.Units.CELSIUS);
-        returned = temperature.getValue();
-
-        assertEquals(expected, returned, EPSILON);
+        verifyXtoY(Temperature.Units.KELVIN,
+                   Temperature.Units.CELSIUS,
+                   original,
+                   expected);
     }
 
     @Test
@@ -92,12 +106,105 @@ public class TemperatureTest {
         // Normal Case
         final double original = 100;
         final double expected = -279.67;
+
+        verifyXtoY(Temperature.Units.KELVIN,
+                   Temperature.Units.FAHRENHEIT,
+                   original,
+                   expected);
+    }
+
+    // Conversion Tests (Celsius to X)
+    @Test
+    public void VerifyCelsiusToCelsius() {
+        // Normal Case
+        final double original = 100;
+        final double expected = 100;
+
+        verifyXtoY(Temperature.Units.CELSIUS,
+                   Temperature.Units.CELSIUS,
+                   original,
+                   expected);
+    }
+
+    @Test
+    public void VerifyCelsiusToKelvin() {
+        // Normal Case
+        final double original = 100;
+        final double expected = 373.15;
+
+        verifyXtoY(Temperature.Units.CELSIUS,
+                   Temperature.Units.KELVIN,
+                   original,
+                   expected);
+    }
+
+    @Test
+    public void VerifyCelsiusToFahrenheit() {
+        // Normal Case
+        final double original = 100;
+        final double expected = 212;
+
+        verifyXtoY(Temperature.Units.CELSIUS,
+                   Temperature.Units.FAHRENHEIT,
+                   original,
+                   expected);
+    }
+
+    // Conversion Tests (Fahrenheit to X)
+    @Test
+    public void VerifyFahrenheitToFahrenheit() {
+        // Normal Case
+        final double original = 100;
+        final double expected = 100;
+
+        verifyXtoY(Temperature.Units.FAHRENHEIT,
+                   Temperature.Units.FAHRENHEIT,
+                   original,
+                   expected);
+    }
+
+    @Test
+    public void VerifyFahrenheitToCelsius() {
+        // Normal Case
+        final double original = 100;
+        final double expected = 37.778;
+
+        verifyXtoY(Temperature.Units.FAHRENHEIT,
+                   Temperature.Units.CELSIUS,
+                   original,
+                   expected);
+    }
+
+    @Test
+    public void VerifyFahrenheitToKelvin() {
+        // Normal Case
+        final double original = 100;
+        final double expected = 310.928;
+
+        verifyXtoY(Temperature.Units.FAHRENHEIT,
+                   Temperature.Units.KELVIN,
+                   original,
+                   expected);
+    }
+
+    // Private Helper Methods
+    /**
+     * Creates a new instance of the {@code Temperature} class with the given
+     * {@code originalValue} value, converts it to the given {@code targetUnit}
+     * unit and asserts that the result be equal to the given
+     * {@code expectedValue} value.
+     */
+    private void verifyXtoY(final Temperature.Units baseUnit, final Temperature.Units targetUnit,
+                            final double originalValue, final double expectedValue) {
         double returned;
 
-        Temperature temperature = new Temperature(original, Temperature.Units.KELVIN);
-        temperature.changeUnits(Temperature.Units.FAHRENHEIT);
+        Temperature temperature = new Temperature(originalValue, baseUnit);
+        temperature.changeUnits(targetUnit);
         returned = temperature.getValue();
 
-        assertEquals(expected, returned, EPSILON);
+        assertEquals(String.format("Conversion from %s to %s.", baseUnit, targetUnit),
+                     expectedValue,
+                     returned,
+                     EPSILON);
     }
 }
