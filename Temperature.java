@@ -43,8 +43,8 @@ public final class Temperature {
      * @param value numerical value of {@code Temperature}
      * @param units {@code Units} of {@code Temperature}
      */
-    public Temperature(double value, Temperature.Units units) {
-        mUnit = units;
+    public Temperature(double value, Temperature.Units unit) {
+        mUnit = unit;
         mValueInKelvins = convertToKelvin(value);
     }
 

@@ -20,10 +20,9 @@ public class TemperatureTest {
     }
 
     // Tests
-    
     // Constructor Tests
     @Test
-    public void VerifyCreateFromScratch() {
+    public void verifyCreateFromScratch() {
         // We expect that what we put in is what comes out.
         Temperature kTemp = new Temperature(1, Temperature.Units.KELVIN);
         Temperature cTemp = new Temperature(2, Temperature.Units.CELSIUS);
@@ -33,12 +32,13 @@ public class TemperatureTest {
         assertTrue("Unit in Celsius is registered.", cTemp.getUnits() == Temperature.Units.CELSIUS);
         assertTrue("Unit in Fahrenheit is registered.", fTemp.getUnits() == Temperature.Units.FAHRENHEIT);
 
-        assertTrue("Value in Kelvins is registered.", areEqual(kTemp.getValue(), 1));
-        assertTrue("Value in Celsius is registered.", areEqual(cTemp.getValue(), 2));
-        assertTrue("Value in Fahrenheit is registered.", areEqual(fTemp.getValue(), 3));
+        assertEquals("Value in Kelvins is registered.", kTemp.getValue(), 1, EPSILON);
+        assertEquals("Value in Celsius is registered.", cTemp.getValue(), 2, EPSILON);
+        assertEquals("Value in Fahrenheit is registered.", fTemp.getValue(), 3, EPSILON);
     }
+
     @Test
-    public void VerifyCreateFromExisisting() {
+    public void verifyCreateFromExisisting() {
         // We expect that what we put in is what comes out.
         Temperature kOriginal = new Temperature(1, Temperature.Units.KELVIN);
         Temperature cOriginal = new Temperature(2, Temperature.Units.CELSIUS);
@@ -47,19 +47,57 @@ public class TemperatureTest {
         Temperature kCopy = new Temperature(kOriginal);
         Temperature cCopy = new Temperature(cOriginal);
         Temperature fCopy = new Temperature(fOriginal);
-        
+
         assertTrue("Kelvin: Unit information was copied.", kOriginal.getUnits() == kCopy.getUnits());
-        assertTrue("Kelvin: Value information was copied.", areEqual(kOriginal.getValue(), kCopy.getValue()));
-        
+        assertEquals("Kelvin: Value information was copied.", kOriginal.getValue(), kCopy.getValue(), EPSILON);
+
         assertTrue("Celsius: Unit information was copied.", cOriginal.getUnits() == cCopy.getUnits());
-        assertTrue("Celsius: Value information was copied.", areEqual(cOriginal.getValue(), cCopy.getValue()));
-        
+        assertEquals("Celsius: Value information was copied.", cOriginal.getValue(), cCopy.getValue(), EPSILON);
+
         assertTrue("Fahrenheit: Unit information was copied.", fOriginal.getUnits() == fCopy.getUnits());
-        assertTrue("Fahrenheit: Value information was copied.", areEqual(fOriginal.getValue(), fCopy.getValue()));
+        assertEquals("Fahrenheit: Value information was copied.", fOriginal.getValue(), fCopy.getValue(), EPSILON);
     }
 
-    // Helper Methods
-    private static Boolean areEqual(double a, double b) {
-        return (Math.abs(a - b) <= EPSILON);
+    // Conversion Tests
+    @Test
+    public void verifyKelvinToKelvin() {
+        // Normal Case
+        final double original = 100;
+        final double expected = 100;
+        double returned;
+
+        Temperature temperature = new Temperature(original, Temperature.Units.KELVIN);
+        temperature.changeUnits(Temperature.Units.KELVIN);
+        returned = temperature.getValue();
+
+        assertEquals(expected, returned, EPSILON);
+    }
+
+    @Test
+    public void verifyKelvinToCelsius() {
+        // Normal Case
+        final double original = 100;
+        final double expected = -173.15;
+        double returned;
+
+        Temperature temperature = new Temperature(original, Temperature.Units.KELVIN);
+        temperature.changeUnits(Temperature.Units.CELSIUS);
+        returned = temperature.getValue();
+
+        assertEquals(expected, returned, EPSILON);
+    }
+
+    @Test
+    public void verifyKelvinToFahrenheit() {
+        // Normal Case
+        final double original = 100;
+        final double expected = -279.67;
+        double returned;
+
+        Temperature temperature = new Temperature(original, Temperature.Units.KELVIN);
+        temperature.changeUnits(Temperature.Units.FAHRENHEIT);
+        returned = temperature.getValue();
+
+        assertEquals(expected, returned, EPSILON);
     }
 }
