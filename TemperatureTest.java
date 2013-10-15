@@ -13,17 +13,26 @@ public class TemperatureTest {
 
     // Constants
     private static final double EPSILON = 1E-3;
-
+    
     // .ctor
     public static void main(String[] args) {
         JUnitCore.main(new String[]{"TemperatureTest"});
     }
 
-    // Tests
     // Constructor Tests
     @Test
+    /**
+     * This method asserts that upon creation of a new instance of the
+     * {@code Temperature} class, the data that is fed to the constructor is the
+     * same as the data we recuperate from calling
+     * {@code Temperature.getValue()} and {@code Temperature.getUnits()).
+     *
+     * Calls {@code Temperature.ctor(double, Temperature.Units)}.
+     */
     public void verifyCreateFromScratch() {
-        // We expect that what we put in is what comes out.
+        // We choose three different temperature values (1, 2, 3) to ensure that
+        // the class is storing them on a per-instance basis. The same with the
+        // units.
         Temperature kTemp = new Temperature(1, Temperature.Units.KELVIN);
         Temperature cTemp = new Temperature(2, Temperature.Units.CELSIUS);
         Temperature fTemp = new Temperature(3, Temperature.Units.FAHRENHEIT);
@@ -43,13 +52,24 @@ public class TemperatureTest {
                      fTemp.getValue(), 3, EPSILON);
     }
 
+    /**
+     * This method asserts that upon creation of a new instance of the
+     * {@code Temperature} class, the data that is fed to the constructor is the
+     * same as the data we recuperate from calling
+     * {@code Temperature.getValue()} and {@code Temperature.getUnits()).
+     *
+     * Calls {@code Temperature.ctor(Temperature)}.
+     */
     @Test
     public void verifyCreateFromExisisting() {
-        // We expect that what we put in is what comes out.
+        // We create three different instances. The reasoning for (1, 2, 3) is
+        // the same as for verifyCreateFromScratch.
         Temperature kOriginal = new Temperature(1, Temperature.Units.KELVIN);
         Temperature cOriginal = new Temperature(2, Temperature.Units.CELSIUS);
         Temperature fOriginal = new Temperature(3, Temperature.Units.FAHRENHEIT);
 
+        // We then create shallow copies and check that the data was copied over
+        // properly.
         Temperature kCopy = new Temperature(kOriginal);
         Temperature cCopy = new Temperature(cOriginal);
         Temperature fCopy = new Temperature(fOriginal);
@@ -76,7 +96,11 @@ public class TemperatureTest {
                      EPSILON);
     }
 
-    // Conversion Tests (Kelvin to X)
+    // Base-case Conversion Tests (Kelvin to X)
+    /**
+     * Performs a base-case conversion from Kelvin to Kelvin and verifies that
+     * the conversion math be correct.
+     */
     @Test
     public void verifyKelvinToKelvin() {
         // Normal Case
@@ -89,6 +113,10 @@ public class TemperatureTest {
                    expected);
     }
 
+    /**
+     * Performs a base-case conversion from Kelvin to Celsius and verifies that
+     * the conversion math be correct.
+     */
     @Test
     public void verifyKelvinToCelsius() {
         // Normal Case
@@ -101,6 +129,10 @@ public class TemperatureTest {
                    expected);
     }
 
+    /**
+     * Performs a base-case conversion from Kelvin to Fahrenheit and verifies
+     * that the conversion math be correct.
+     */
     @Test
     public void verifyKelvinToFahrenheit() {
         // Normal Case
@@ -114,6 +146,10 @@ public class TemperatureTest {
     }
 
     // Conversion Tests (Celsius to X)
+    /**
+     * Performs a base-case conversion from Celsius to Celsius and verifies that
+     * the conversion math be correct.
+     */
     @Test
     public void verifyCelsiusToCelsius() {
         // Normal Case
@@ -126,6 +162,10 @@ public class TemperatureTest {
                    expected);
     }
 
+    /**
+     * Performs a base-case conversion from Celsius to Kelvin and verifies that
+     * the conversion math be correct.
+     */
     @Test
     public void verifyCelsiusToKelvin() {
         // Normal Case
@@ -138,6 +178,10 @@ public class TemperatureTest {
                    expected);
     }
 
+    /**
+     * Performs a base-case conversion from Celsius to Fahrenheit and verifies
+     * that the conversion math be correct.
+     */
     @Test
     public void verifyCelsiusToFahrenheit() {
         // Normal Case
@@ -151,6 +195,10 @@ public class TemperatureTest {
     }
 
     // Conversion Tests (Fahrenheit to X)
+    /**
+     * Performs a base-case conversion from Fahrenheit to Fahrenheit and
+     * verifies that the conversion math be correct.
+     */
     @Test
     public void verifyFahrenheitToFahrenheit() {
         // Normal Case
@@ -163,6 +211,10 @@ public class TemperatureTest {
                    expected);
     }
 
+    /**
+     * Performs a base-case conversion from Fahrenheit to Celsius and verifies
+     * that the conversion math be correct.
+     */
     @Test
     public void verifyFahrenheitToCelsius() {
         // Normal Case
@@ -175,6 +227,10 @@ public class TemperatureTest {
                    expected);
     }
 
+    /**
+     * Performs a base-case conversion from Fahrenheit to Kelvin and verifies
+     * that the conversion math be correct.
+     */
     @Test
     public void verifyFahrenheitToKelvin() {
         // Normal Case
@@ -188,16 +244,28 @@ public class TemperatureTest {
     }
 
     // Invalid Cases
+    /**
+     * Verifies that an exception be thrown when the constructor is called with
+     * {@code Double.NaN} as a temperature value.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void verifyExceptionOnNaN() {
         new Temperature(Double.NaN, Temperature.Units.KELVIN);
     }
 
+    /**
+     * Verifies that an exception be thrown when the constructor is called with
+     * {@code Double.POSITIVE_INFINITY} as a temperature value.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void verifyExceptionOnPositiveInfinity() {
         new Temperature(Double.POSITIVE_INFINITY, Temperature.Units.KELVIN);
     }
 
+    /**
+     * Verifies that an exception be thrown when the constructor is called with
+     * {@code Double.NEGATIVE_INFINITY} as a temperature value.
+     */
     @Test(expected = IllegalArgumentException.class)
     public void verifyExceptionOnNegativeInfinity() {
         new Temperature(Double.NEGATIVE_INFINITY, Temperature.Units.KELVIN);
@@ -223,4 +291,5 @@ public class TemperatureTest {
                      returned,
                      EPSILON);
     }
+
 }
