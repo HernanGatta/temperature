@@ -1,15 +1,14 @@
-/*****************************************************************************
- * Assignment 3
- * 
- * Student Name: Hernan A. Gatta
- * Student ID:	 260477492
- * Course:       ECSE 321
- * 
- * File:  TemperatureTest.java
- * Class: TemperatureTest
- * 
- *****************************************************************************/
 
+/**
+ * ***************************************************************************
+ * Assignment 3
+ *
+ * Student Name: Hernan A. Gatta Student ID:	260477492 Course: ECSE 321
+ *
+ * File: TemperatureTest.java Class: TemperatureTest
+ *
+ ****************************************************************************
+ */
 /**
  * @author Aditya Mahajan <aditya.mahajan@mcgill.ca>
  * @author Hernan Gatta <hernan.gatta@mail.mcgill.ca>
@@ -28,7 +27,7 @@ public class TemperatureTest {
      * and actual returned values.
      */
     private static final double EPSILON = 1E-3;
-    
+
     // .ctor
     public static void main(String[] args) {
         JUnitCore.main(new String[]{"TemperatureTest"});
@@ -52,12 +51,15 @@ public class TemperatureTest {
         Temperature cTemp = new Temperature(2, Temperature.Units.CELSIUS);
         Temperature fTemp = new Temperature(3, Temperature.Units.FAHRENHEIT);
 
-        assertTrue("Unit in Kelvin is registered.",
-                   kTemp.getUnits() == Temperature.Units.KELVIN);
-        assertTrue("Unit in Celsius is registered.",
-                   cTemp.getUnits() == Temperature.Units.CELSIUS);
-        assertTrue("Unit in Fahrenheit is registered.",
-                   fTemp.getUnits() == Temperature.Units.FAHRENHEIT);
+        assertEquals("Unit in Kelvin is registered.",
+                     Temperature.Units.KELVIN,
+                     kTemp.getUnits());
+        assertEquals("Unit in Celsius is registered.",
+                     Temperature.Units.CELSIUS,
+                     cTemp.getUnits());
+        assertEquals("Unit in Fahrenheit is registered.",
+                     Temperature.Units.FAHRENHEIT,
+                     fTemp.getUnits());
 
         assertEquals("Value in Kelvins is registered.",
                      kTemp.getValue(), 1, EPSILON);
@@ -89,22 +91,25 @@ public class TemperatureTest {
         Temperature cCopy = new Temperature(cOriginal);
         Temperature fCopy = new Temperature(fOriginal);
 
-        assertTrue("Kelvin: Unit information was copied.",
-                   kOriginal.getUnits() == kCopy.getUnits());
+        assertEquals("Kelvin: Unit information was copied.",
+                     kOriginal.getUnits(),
+                     kCopy.getUnits());
         assertEquals("Kelvin: Value information was copied.",
                      kOriginal.getValue(),
                      kCopy.getValue(),
                      EPSILON);
 
-        assertTrue("Celsius: Unit information was copied.",
-                   cOriginal.getUnits() == cCopy.getUnits());
+        assertEquals("Celsius: Unit information was copied.",
+                     cOriginal.getUnits(),
+                     cCopy.getUnits());
         assertEquals("Celsius: Value information was copied.",
                      cOriginal.getValue(),
                      cCopy.getValue(),
                      EPSILON);
 
-        assertTrue("Fahrenheit: Unit information was copied.",
-                   fOriginal.getUnits() == fCopy.getUnits());
+        assertEquals("Fahrenheit: Unit information was copied.",
+                     fOriginal.getUnits(),
+                     fCopy.getUnits());
         assertEquals("Fahrenheit: Value information was copied.",
                      fOriginal.getValue(),
                      fCopy.getValue(),
@@ -308,8 +313,8 @@ public class TemperatureTest {
                      expectedValue,
                      returned,
                      EPSILON);
-        assertEquals("Target unit matches changed unit.", 
-                     targetUnit, 
+        assertEquals("Target unit matches changed unit.",
+                     targetUnit,
                      temperature.getUnits());
     }
 
