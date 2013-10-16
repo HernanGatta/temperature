@@ -302,7 +302,7 @@ public class TemperatureTest {
      */
     @Test
     public void verifyStringRepresentation_EN() {
-        // Don't pass if this is a non-English culture.
+        // Don't run if this is a non-English culture.
         org.junit.Assume.assumeTrue(Locale.getDefault() == Locale.ENGLISH);
         
         // These values come from the documentation for the
