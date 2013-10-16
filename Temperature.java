@@ -2,9 +2,12 @@
  * ***************************************************************************
  * Assignment 3
  *
- * Student Name: Hernan A. Gatta Student ID:	260477492 Course: ECSE 321
+ * Student Name:    Hernan A. Gatta
+ * Student ID:      260477492
+ * Course:          ECSE 321
  *
- * File: Temperature.java Class: Temperature
+ * File:    Temperature.java
+ * Class:   Temperature
  *
  ****************************************************************************
  */

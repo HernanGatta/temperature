@@ -1,11 +1,13 @@
-
 /**
  * ***************************************************************************
  * Assignment 3
  *
- * Student Name: Hernan A. Gatta Student ID:	260477492 Course: ECSE 321
+ * Student Name:    Hernan A. Gatta
+ * Student ID:      260477492
+ * Course:          ECSE 321
  *
- * File: TemperatureTest.java Class: TemperatureTest
+ * File:    TemperatureTest.java
+ * Class:   TemperatureTest
  *
  ****************************************************************************
  */
@@ -35,7 +37,6 @@ public class TemperatureTest {
     }
 
     // Constructor Tests
-    @Test
     /**
      * This method asserts that upon creation of a new instance of the
      * {@code Temperature} class, the data that is fed to the constructor is the
@@ -44,6 +45,7 @@ public class TemperatureTest {
      *
      * Calls {@code Temperature.ctor(double, Temperature.Units)}.
      */
+     @Test
     public void verifyCreateFromScratch() {
         // We choose three different temperature values (1, 2, 3) to ensure that
         // the class is storing them on a per-instance basis. The same with the
