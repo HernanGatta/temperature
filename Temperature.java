@@ -1,14 +1,16 @@
-/*****************************************************************************
+/**
+ * ***************************************************************************
  * Assignment 3
- * 
- * Student Name: Hernan A. Gatta
- * Student ID:	 260477492
- * Course:       ECSE 321
- * 
- * File:  Temperature.java
- * Class: Temperature
- * 
- *****************************************************************************/
+ *
+ * Student Name: Hernan A. Gatta Student ID:	260477492 Course: ECSE 321
+ *
+ * File: Temperature.java Class: Temperature
+ *
+ ****************************************************************************
+ */
+
+import java.text.NumberFormat;
+import java.text.DecimalFormat;
 
 /**
  * @author Aditya Mahajan <aditya.mahajan@mcgill.ca>
@@ -33,7 +35,6 @@
  * </code></pre>
  */
 public final class Temperature {
-
     /**
      * Enumeration for different temperature units
      */
@@ -43,10 +44,11 @@ public final class Temperature {
         CELSIUS,
         KELVIN
     }
+    
     // Data
     private final double mValueInKelvins;
     private Units mUnit;
-
+  
     //.ctors
     /**
      * Create a new {@code Temperature} with given attributes
@@ -55,9 +57,10 @@ public final class Temperature {
      * @param units {@code Units} of {@code Temperature}
      */
     public Temperature(double value, Temperature.Units unit) {
-        if(Double.isNaN(value)|| Double.isInfinite(value))
+        if (Double.isNaN(value) || Double.isInfinite(value)) {
             throw new IllegalArgumentException("'value' must be an actual value.");
-        
+        }
+
         mUnit = unit;
         mValueInKelvins = convertToKelvin(value);
     }
@@ -160,7 +163,7 @@ public final class Temperature {
 
     /**
      * Convert the {@code Temperature} to {@code String}. The output is as
-     * follows
+     * follows on an English computer:
      * <pre><code>
      *    Temperature temperature = new Temperature(0, Temperature.Units.CELSIUS);
      *    System.out.println(temperature.toString()); // prints "0 °C"
@@ -172,6 +175,12 @@ public final class Temperature {
      */
     @Override
     public String toString() {
-        return getValue() + " " + unitsToString();
+        // Get a decimal formatter for the current culture.
+        NumberFormat format = DecimalFormat.getNumberInstance();
+        // Format the number into a string.
+        String formattedNumber = format.format(getValue());
+        
+        // Return the final form with the unit appended after a space.
+        return String.format("%s %s", formattedNumber, unitsToString());
     }
 }

@@ -9,25 +9,26 @@
  *
  ****************************************************************************
  */
+import org.junit.*;
+import java.util.Locale;
+import org.junit.runner.JUnitCore;
+
+import static org.junit.Assert.*;
+
 /**
  * @author Aditya Mahajan <aditya.mahajan@mcgill.ca>
  * @author Hernan Gatta <hernan.gatta@mail.mcgill.ca>
  * @version 2013.10.06
  * @version 2013.10.15 Code cleanup. Unit Testing Temperature class
  */
-import org.junit.*;
-import static org.junit.Assert.*;
-import org.junit.runner.JUnitCore;
-
 public class TemperatureTest {
-
     // Constants
     /**
      * This constant specifies the maximum allowed difference between expected
      * and actual returned values.
      */
     private static final double EPSILON = 1E-3;
-
+ 
     // .ctor
     public static void main(String[] args) {
         JUnitCore.main(new String[]{"TemperatureTest"});
@@ -294,6 +295,31 @@ public class TemperatureTest {
         new Temperature(Double.NEGATIVE_INFINITY, Temperature.Units.KELVIN);
     }
 
+    // String Tests
+    /**
+     * Verifies that the returned string representations match the description
+     * in the documentation.
+     */
+    @Test
+    public void verifyStringRepresentation_EN() {
+        // Don't pass if this is a non-English culture.
+        org.junit.Assume.assumeTrue(Locale.getDefault() == Locale.ENGLISH);
+        
+        // These values come from the documentation for the
+        // Temperature.toString() method. They are also good measure for
+        // fractional results.
+        Temperature kTemperature = new Temperature(0, Temperature.Units.CELSIUS);
+        Temperature cTemperature = new Temperature(0, Temperature.Units.CELSIUS);
+        Temperature fTemperature = new Temperature(0, Temperature.Units.CELSIUS);
+
+        kTemperature.changeUnits(Temperature.Units.KELVIN);
+        fTemperature.changeUnits(Temperature.Units.FAHRENHEIT);
+
+        assertEquals("0 °C", cTemperature.toString());
+        assertEquals("32 °F", fTemperature.toString());
+        assertEquals("273.15 K", kTemperature.toString());
+    }
+
     // Private Helper Methods
     /**
      * Creates a new instance of the {@code Temperature} class with the given
@@ -317,5 +343,4 @@ public class TemperatureTest {
                      targetUnit,
                      temperature.getUnits());
     }
-
 }
